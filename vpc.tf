@@ -61,7 +61,6 @@ resource "aws_eip" "nat_eip" {
 
 # Actually creating the nat gateway
 resource "aws_nat_gateway" "nat_gw" {
-  connectivity_type = "private"
   subnet_id = aws_subnet.public.id
 
   tags = {
