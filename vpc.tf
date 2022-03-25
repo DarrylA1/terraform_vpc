@@ -61,6 +61,7 @@ resource "aws_eip" "nat_eip" {
 
 # Actually creating the nat gateway
 resource "aws_nat_gateway" "nat_gw" {
+  allocation_id = aws_eip.nat_eip.id  
   subnet_id = aws_subnet.public.id
 
   tags = {
@@ -75,7 +76,7 @@ resource "aws_route_table" "internet_route_table" {
   vpc_id = aws_vpc.main.id
 
   route {
-    cidr_block = "192.168.1.0/24"
+    cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw.id
   }
 }
