@@ -25,7 +25,7 @@ resource "aws_subnet" "privateapp" {
     vpc_id = aws_vpc.main.id
     cidr_block = "192.168.2.0/24"
     availability_zone = "us-east-1a"
-    map_public_ip_on_launch = true
+    map_public_ip_on_launch = false
 
     tags = {
         Name = "talent-academy-privateapp-a"
@@ -37,7 +37,7 @@ resource "aws_subnet" "data" {
     vpc_id = aws_vpc.main.id
     cidr_block = "192.168.3.0/24"
     availability_zone = "us-east-1a"
-    map_public_ip_on_launch = true
+    map_public_ip_on_launch = false
 
     tags = {
         Name = "talent-academy-data-a"
@@ -62,7 +62,7 @@ resource "aws_eip" "nat_eip" {
 # Actually creating the nat gateway
 resource "aws_nat_gateway" "nat_gw" {
   connectivity_type = "private"
-  subnet_id = aws_subnet.privateapp.id
+  subnet_id = aws_subnet.public.id
 
   tags = {
     Name = "gw NAT"
